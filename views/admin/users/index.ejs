@@ -1,0 +1,32 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+    <hr>
+    <h2>Listagem de usuários</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <%users.forEach(user=>{%>
+                    <tr>
+                        <td><%=user.id%></td>
+                        <td><%=user.email%></td>
+                        <th>
+                            <form method="POST" action="/users/delete" style="display: inline;">
+                            <button class="btn btn-danger">Deletar</button>
+                            <input type="hidden" name="id" value="<%=user.id%>">
+                            </form>
+                            <a class="btn btn-warning" href="/admin/users/edit/<%=user.id%>">Editar</a>
+                        </th>
+                    </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
+<%- include('../../partials/footer.ejs') %>

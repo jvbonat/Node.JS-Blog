@@ -1,0 +1,44 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+    <hr>
+    <h2>Categorias</h2>
+    <a class="btn btn-dark" href="/admin/categories/new">Criar nova categoria</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <%categories.forEach(category=>{%>
+            <tbody>
+                <tr>
+                    <th><%=category.id%></th>
+                    <th><%=category.title%></th>
+                    <th><%=category.slug%></th>
+                    <th>
+                        <form method="POST" action="/categories/delete" style="display:inline" onsubmit="confirmarDelecao(event,this)">
+                            <button class="btn btn-danger">Deletar</button>
+                            <input type="hidden" value="<%=category.id%>" name="id">
+                        </form>
+                        <a class ="btn btn-warning" href="/admin/categories/edit/<%=category.id%>">Editar</a>
+                    </th> 
+                </tr>
+            </tbody>
+        <%})%>
+    </table>
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script>
+    function confirmarDelecao(event,form){
+        event.preventDefault()
+        let decision = confirm("Você tem certeza que deseja apagar esta categoria?")
+        if(decision){
+            form.submit();
+        }
+    }
+</script>
